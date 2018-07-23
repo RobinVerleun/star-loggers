@@ -3,8 +3,9 @@ const required = () => { throw new Error("Not Implemented."); };
 
 const calculateLineInterface = {
   calculateMaxWidth: required,
+  calculateSpaces: required,
   calculateAsterisks: required,
-  calculateSpaces: required
+  calculateLines: required
 };
 
 const printLineInterface = {
@@ -12,21 +13,12 @@ const printLineInterface = {
   printLine: required
 };
 
-const logger = (logger, num) => {
-  let width = logger.calculateMaxWidth(num);
-  let lines = [];
-  for(let i = 1; i <= num; i++) {
-    let numAsterisks = logger.calculateAsterisks(i);
-    lines.push({
-      asterisks: numAsterisks,
-      spaces: logger.calculateSpaces(width, numAsterisks)
-    });
-  };
-
+const logger = (implementedLogger, num) => {
+  let lines = implementedLogger.calculateLines(implementedLogger, num);
   return {
     log: () => {
-      lines.forEach( (line) => {
-        logger.printLine(logger.formatLine(line));
+      lines.forEach( (line, index) => {
+        implementedLogger.printLine(implementedLogger.formatLine(line, index));
       })
     }
   }
