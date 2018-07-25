@@ -1,16 +1,17 @@
-const starTreeLogger = require('./christmasTree');
-const loggerFactory = require('./interfaces').logger;
+const christmasTreeLogger = require('./christmasTree');
+const starLogger = require('./star');
+const loggerFactory = require('./interfaces').loggerFactory;
 
 const main = () => {
   
   let num = process.argv[2];
+  let logger = loggerFactory(christmasTreeLogger, num);
+  logger.log();
+  
+  console.log('\n\n\n');
 
-  if(num >= 0) {
-    const logger = loggerFactory(starTreeLogger, num);
-    logger.log();
-  } else {
-    console.log('Please enter a positive whole number.');
-  };
-}
+  logger = loggerFactory(starLogger, num);
+  logger.log();
+};
 
 main();

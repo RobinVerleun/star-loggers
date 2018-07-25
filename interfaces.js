@@ -2,6 +2,8 @@
 const required = () => { throw new Error("Not Implemented."); };
 
 const calculateLineInterface = {
+  error: '',
+  validateInput: required,
   calculateMaxWidth: required,
   calculateSpaces: required,
   calculateAsterisks: required,
@@ -13,19 +15,24 @@ const printLineInterface = {
   printLine: required
 };
 
-const logger = (implementedLogger, num) => {
-  let lines = implementedLogger.calculateLines(implementedLogger, num);
+const loggerFactory = (implementedLogger, num) => {
+  let valid = implementedLogger.validateInput(num);
+  let lines = valid ? implementedLogger.calculateLines(num) : [];
   return {
     log: () => {
-      lines.forEach( (line, index) => {
-        implementedLogger.printLine(implementedLogger.formatLine(line, index));
-      })
+      if(valid) {
+        lines.forEach( (line, index) => {
+          implementedLogger.printLine(implementedLogger.formatLine(line, index));
+        });
+      } else {
+        console.log(implementedLogger.type, ':', implementedLogger.error);
+      };
     }
-  }
-}
+  };
+};
 
 module.exports = {
   calculateLineInterface,
   printLineInterface,
-  logger
-};
+  loggerFactory
+}; 

@@ -6,13 +6,16 @@ const basic2 = Object.assign({}, printLineInterfaces);
 const compound = Object.assign(basic, basic2);
 const starLogger = Object.create(compound);
 
+starLogger.type = 'StarLogger';
+starLogger.error = '';
+
 // starLogger now has to implement the four interfaces
 starLogger.calculateMaxWidth = (num) => {
   if(num == 1) return 1;
   return 4 * Math.ceil((num - 1) / 2) + 1;
 }
 
-starLogger.calculateAsterisks = (lineNum) => {
+starLogger.calculateAsterisks = () => {
   return 2;
 };
 
@@ -20,16 +23,14 @@ starLogger.calculateSpaces = (width, asterisks) => {
   return width - asterisks;
 }
 
-starLogger.calculateLines = (logger, num) => {
-  
+starLogger.calculateLines = (num) => {
   // Invariant: by this point, the tree height must be an odd number.
-  let width = logger.calculateMaxWidth(num);
+  let width = starLogger.calculateMaxWidth(num);
   let lines = [];
 
   // Helper function for calculating the spacing - approaches the problem
   // as a y=mx+b problem, switching slope around the middle.
   const _outSideSpacing = (i, _numLines) => {
-    
     let num = parseInt(_numLines);
 
     if(i == 1 || i == num) return 0;
@@ -37,15 +38,15 @@ starLogger.calculateLines = (logger, num) => {
       return 2 * (i - 1);
     } else {
       return 2 * ((-1 * i) + num);
-    }
-  }
+    };
+  };
 
   // All the lines will be 2 asterisks except the middle one
   // Track the outside spacing of the line for future formatting
    for(let i = 1; i <= num; i++) {
     lines.push({
-       asterisks: 2,
-       spaces: logger.calculateSpaces(width, 2),
+       asterisks: starLogger.calculateAsterisks(),
+       spaces: starLogger.calculateSpaces(width, 2),
        outsideSpacing: _outSideSpacing(i, num)
      });
    };
@@ -54,10 +55,19 @@ starLogger.calculateLines = (logger, num) => {
   // Halve the height of the tree, then floor to correct for 0 indexing
   lines[Math.floor(num / 2)] = {
     asterisks: 1,
-    spaces: logger.calculateSpaces(width, 1),
+    spaces: starLogger.calculateSpaces(width, 1),
     outsideSpacing: _outSideSpacing(Math.ceil(num / 2), num)
   };
+
   return lines;
+};
+
+starLogger.validateInput = (input) => {
+  if( input <= 0 || input % 2 === 0) {
+    starLogger.error = 'Must input a positive odd number.'
+    return false;
+  }
+  return true;
 };
 
 starLogger.formatLine = (lineDetail) => {
@@ -78,6 +88,5 @@ starLogger.printLine = (line) => {
     console.log('');
   };
 };
-
 
 module.exports = starLogger

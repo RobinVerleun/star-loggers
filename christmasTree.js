@@ -6,7 +6,10 @@ const basic2 = Object.assign({}, printLineInterface);
 const compound = Object.assign(basic, basic2);
 const christmasTreeLogger = Object.create(compound);
 
-// christmasTreeLogger now has to implement the three required interfaces
+christmasTreeLogger.type = 'ChristmasTreeLogger';;
+christmasTreeLogger.error = '';
+
+// christmasTreeLogger now has to implement the required interfaces
 christmasTreeLogger.calculateMaxWidth = (num) => {
   return 2 * num - 1;
 };
@@ -17,21 +20,30 @@ christmasTreeLogger.calculateAsterisks = (lineNum) => {
 
 christmasTreeLogger.calculateSpaces = (width, asterisks) => {
   return width - asterisks;
-}
+};
 
-christmasTreeLogger.calculateLines = (logger, num) => {
-  let width = logger.calculateMaxWidth(num);
+christmasTreeLogger.calculateLines = (num) => {
+  let width = christmasTreeLogger.calculateMaxWidth(num);
   let lines = [];
   for(let i = 1; i <= num; i++) {
-    let numAsterisks = logger.calculateAsterisks(i);
+    let numAsterisks = christmasTreeLogger.calculateAsterisks(i);
     lines.push({
       asterisks: numAsterisks,
-      spaces: logger.calculateSpaces(width, numAsterisks)
+      spaces: christmasTreeLogger.calculateSpaces(width, numAsterisks)
     });
   };
-
+  
   return lines;
-}
+};
+
+christmasTreeLogger.validateInput = (input) => {
+  if( input >= 0) {
+    return true;
+  } else {
+    christmasTreeLogger.error = 'Must input a number greater than 0.';
+    return false;
+  }
+};
 
 christmasTreeLogger.formatLine = (lineDetail) => {
   let spacing = lineDetail.spaces / 2;
