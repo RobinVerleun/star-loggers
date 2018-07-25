@@ -63,8 +63,8 @@ starLogger.calculateLines = (num) => {
 };
 
 starLogger.validateInput = (input) => {
-  if( input <= 0 || input % 2 === 0) {
-    starLogger.error = 'Must input a positive odd number.'
+  if( input <= 0 || input % 2 === 0 || input  % 1 !== 0) {
+    starLogger.error = 'Must input an odd, positive, and whole number greater than zero.'
     return false;
   }
   return true;

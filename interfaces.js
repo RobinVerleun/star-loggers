@@ -16,6 +16,9 @@ const printLineInterface = {
 };
 
 const loggerFactory = (implementedLogger, num) => {
+
+  if(!implementedLogger) throw 'NoLogger';
+  
   let valid = implementedLogger.validateInput(num);
   let lines = valid ? implementedLogger.calculateLines(num) : [];
   return {

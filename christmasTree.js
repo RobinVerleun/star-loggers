@@ -37,10 +37,10 @@ christmasTreeLogger.calculateLines = (num) => {
 };
 
 christmasTreeLogger.validateInput = (input) => {
-  if( input >= 0) {
+  if( input > 0 && input % 1 === 0) {
     return true;
   } else {
-    christmasTreeLogger.error = 'Must input a number greater than 0.';
+    christmasTreeLogger.error = 'Must input a positive whole number greater than 0.';
     return false;
   }
 };
