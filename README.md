@@ -6,19 +6,19 @@ print a console output in a specific shape and pattern.
 Using 3 as a demo parameter, 
 
 Pattern 1 is a christmas tree style:
-  
+```  
   *
  ***
 *****
-
+```
 Pattern 2 is a star:
-
+```
 *       *
   *   *
     *
   *   *
 *       *
-
+```
 
 ## To Run
 Ensure you have both [NodeJs](https://nodejs.org/en/) and npm installed on your machine.
