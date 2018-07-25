@@ -40,7 +40,7 @@ Then, in the root directory of the project, run
 `npm test`.
 
 
-### Musings
+## Musings
 
 This assignment was intended to be a quick practice in writing FizzBuzz level code, but 
 with the condition that the code adheres as closely as possible to both SOLID and DRY
